@@ -24,23 +24,33 @@ class User {
    *    {username, password, first_name, last_name, phone}
    */
 
-  static async register({NewUsername, newPassword, newFirst_name, newLast_name, newPhone}) { 
-    const hashedPassword=await bcrypt.hash(newPassword,BCRYPT_WORK_FACTOR);
+  static async register({username, password, first_name, last_name, phone}) { 
+    const hashedPassword=await bcrypt.hash(password,BCRYPT_WORK_FACTOR);
     const result = await db.query(
       `INSERT INTO users (username,password,first_name,last_name,phone,join_at)
       VALUES($1,$2,$3,$4,$5,current_timestamp)
-      RETURNING username,first_name,last_name`,[NewUsername, hashedPassword, newFirst_name, newLast_name, newPhone]
+      RETURNING username,first_name,last_name`
+      ,[username, hashedPassword, first_name, last_name, phone]
       
     )
-    const {username,password,first_name,last_name,phone} = result.rows[0]
+   return result.rows[0]
 
-    
-    return new User(username,password,first_name,last_name,phone)
   }
 
   /** Authenticate: is this username/password valid? Returns boolean. */
 
-  static async authenticate(username, password) { }
+  static async authenticate(username, password) {
+    const result = await db.query(`
+    SELECT password
+    FROM users
+    WHERE username=$1`,
+    
+    [username]);
+    const user =result.rows[0];
+    
+    
+    return user  && bcrypt.compareSync(password,user.password)
+   }
 
   /** Update last_login_at for user */
 
@@ -49,7 +59,14 @@ class User {
   /** All: basic info on all users:
    * [{username, first_name, last_name, phone}, ...] */
 
-  static async all() { }
+  static async all() { 
+    const result = await db.query(`
+    SELECT *
+    FROM users
+    
+    `);
+    return result.rows
+  }
 
   /** Get: get user by username
    *
@@ -60,7 +77,14 @@ class User {
    *          join_at,
    *          last_login_at } */
 
-  static async get(username) { }
+  static async get(username) { 
+    const result = await db.query(`
+    SELECT *
+    FROM users
+    WHERE username = $1`,
+    [username])
+    return result.rows[0]
+  }
 
   /** Return messages from this user.
    *

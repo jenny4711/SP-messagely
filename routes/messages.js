@@ -5,6 +5,13 @@ const db = require("../db");
 const {BCRYPT_WORK_FACTOR,SECRET_KEY }= require("../config");
 const {authenticateJWT,ensureLoggedIn,ensureCorrectUser} = require("../middleware/auth")
 const User=require("../models/user")
+const Message=require("../models/message")
+
+router.get("/:id",ensureLoggedIn,async (req,res,next)=>{
+  let {id}=req.params
+  let msg = await Message.get(id)
+  return res.json({msg})
+})
 
 
 
@@ -22,6 +29,11 @@ const User=require("../models/user")
  **/
 
 
+router.post("/",ensureLoggedIn,async (req,res,next)=>{
+  let {from_username, to_username, body}=req.body;
+  let msg = await Message.create({from_username, to_username, body})
+  return res.json({msg})
+})
 /** POST / - post message.
  *
  * {to_username, body} =>
@@ -29,6 +41,11 @@ const User=require("../models/user")
  *
  **/
 
+router.post("/:id/read",async (req,res,next)=>{
+  let {id} = req.params;
+  let msg = await Message.markRead(id)
+  return res.json({msg})
+})
 
 /** POST/:id/read - mark message as read:
  *

@@ -11,6 +11,7 @@ const ExpressError = require("../expressError");
 const {SECRET_KEY }= require("../config");
 const {authenticateJWT,ensureLoggedIn,ensureCorrectUser} = require("../middleware/auth")
 const User=require("../models/user")
+const bcrypt=require("bcrypt")
 
 /** POST /register - register user: registers, logs in, and returns token.
  *
@@ -32,5 +33,21 @@ router.post('/register',async(req,res,next)=>{
     return next(e)
   }
 });
+
+router.post('/login',async(req,res,next)=>{
+  try{
+    const { username,password }=req.body
+   
+    const user = await User.authenticate({username,password})
+   
+    let token = jwt.sign({username},SECRET_KEY);
+    
+    return res.json({username,token})
+
+
+  }catch(e){
+    return next(e)
+  }
+})
 
 module.exports=router
