@@ -21,3 +21,10 @@ CREATE TABLE messages (
     sent_at timestamp with time zone NOT NULL,
     read_at timestamp with time zone
 );
+
+SELECT m.id,m.from_username,m.body,m.sent_at,m.read_at,u.username,u.first_name,u.last_name,u.phone
+FROM users AS u
+LEFT JOIN messages AS m
+ON u.username = m.from_username
+WHERE username ='jenny';
+

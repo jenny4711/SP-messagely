@@ -51,3 +51,9 @@ router.post('/login',async(req,res,next)=>{
 })
 
 module.exports=router
+
+
+
+
+
+// "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imt5dW5nIiwiZmlyc3RfbmFtZSI6ImppIiwibGFzdF9uYW1lIjoibGVlIiwiaWF0IjoxNjc1NzE5ODA2fQ.iqJ3uet3B_RzCig4sx_PRkGch9yTRvybZhYjhpygFsI"

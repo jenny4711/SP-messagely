@@ -94,18 +94,74 @@ class User {
    *   {username, first_name, last_name, phone}
    */
 
-  static async messagesFrom(username) { }
+  static async messagesFrom(username) { 
+    const result = await db.query(`
+    SELECT m.id,
+    m.from_username,
+    m.body,m.sent_at,
+    m.read_at,u.username,
+    u.first_name,
+    u.last_name,
+    u.phone
+    FROM users AS u
+    LEFT JOIN messages AS m
+    ON u.username = m.from_username
+    WHERE username =$1;
+       
+    `,[username]);
+    let msg=result.rows.map(m=>({
+      id:m.id,
+      body:m.body,
+      sent_at:m.sent_at,
+      read_at:m.read_at,
+      from_username:{
+      username:m.username,
+      first_name:m.first_name,
+      last_name:m.last_name,
+      phone:m.phone 
+      }
 
-  /** Return messages to this user.
-   *
-   * [{id, from_user, body, sent_at, read_at}]
-   *
-   * where from_user is
-   *   {username, first_name, last_name, phone}
-   */
+    }))
+    return msg
+        
+  }
 
-  static async messagesTo(username) { }
+
+
+  static async messagesTo(username) {
+    const result = await db.query(`
+    SELECT m.id,
+    m.to_username,
+    m.body,m.sent_at,
+    m.read_at,u.username,
+    u.first_name,
+    u.last_name,
+    u.phone
+    FROM users AS u
+    LEFT JOIN messages AS m
+    ON u.username = m.to_username
+    WHERE username =$1;
+       
+    `,[username]);
+    let msg=result.rows.map(m=>({
+      id:m.id,
+      body:m.body,
+      sent_at:m.sent_at,
+      read_at:m.read_at,
+      to_username:{
+      username:m.username,
+      first_name:m.first_name,
+      last_name:m.last_name,
+      phone:m.phone
+      }
+    }))
+    return msg
+   }
+
+
 }
+
+
 
 
 module.exports = User;
