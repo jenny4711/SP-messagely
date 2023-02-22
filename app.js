@@ -49,3 +49,55 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+
+
+
+
+
+
+// {
+// 	"user": {
+// 		"username": "jjj",
+// 		"first_name": "jenny",
+// 		"last_name": "lee"
+// 	},
+// 	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpqaiIsImZpcnN0X25hbWUiOiJqZW5ueSIsImxhc3RfbmFtZSI6ImxlZSIsImlhdCI6MTY3NzA5ODIwN30.v1hA4Beriu88pOI8d0EOg94iiEr3N6DDkZCdLyo7pjk"
+// }
+
+
+
+
+
+
+
+
+
+
+// {
+// 	"username":"jenny",
+// 	"password":"jenny4711!!"
+
+// }
+// {
+// 	"username": "jenny",
+// 	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Implbm55IiwiaWF0IjoxNjc3MDk5NjkzfQ.0BES5Z0N_7gj2G7HlfzJaPf_GUCJ2PvaxHQf29QPsBM"
+// }
+
+
+
+
+
+
+// {
+// 	"username":"jjj",
+// 	"password":"jenny4711!!"
+
+// }
+// {
+// 	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzcwOTk5MzB9.J0TBFQrbg6hrADtE3TYSsjzainxjn76NP-XN7hbVPtw"
+// }
+
+
+// {
+// 	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzcxMDA3OTh9.Ky60EFC33yabNMSs_vWLJiTzgmlF0j2ivc9u-k-EZjI"
+// }
