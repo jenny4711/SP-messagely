@@ -29,7 +29,7 @@ router.get("/:id",ensureLoggedIn,async (req,res,next)=>{
  **/
 
 
-router.post("/",async (req,res,next)=>{
+router.post("/",ensureLoggedIn,async (req,res,next)=>{
   let {from_username, to_username, body}=req.body;
   let msg = await Message.create({from_username, to_username, body})
   return res.json({msg})
