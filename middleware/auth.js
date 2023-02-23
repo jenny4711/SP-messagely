@@ -20,8 +20,10 @@ function authenticateJWT(req, res, next) {
 
 function ensureLoggedIn(req, res, next) {
   if (!req.user) {
+    console.log(req.user)
     return next({ status: 401, message: "Unauthorized" });
   } else {
+    
     return next();
   }
 }
@@ -47,3 +49,12 @@ module.exports = {
   ensureLoggedIn,
   ensureCorrectUser
 };
+
+
+
+
+// {
+// 	"from_username":"jjj",
+// 	"to_username":"jenny",
+// 	"body":"heyhey!!!"
+// }

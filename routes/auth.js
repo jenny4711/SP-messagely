@@ -40,9 +40,9 @@ router.post('/login',async(req,res,next)=>{
    
     const user = await User.authenticate({username,password})
    
-    let token = jwt.sign({username},SECRET_KEY);
+    let token = jwt.sign({user},SECRET_KEY);
     
-    return res.json({username,token})
+    return res.json({user,token})
 
 
   }catch(e){
